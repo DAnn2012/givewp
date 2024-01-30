@@ -13,7 +13,7 @@
 }
 
 .interface-interface-skeleton__body {
-    width: 100%;
+    width: calc(100% - var(--givewp-sidebar-width));
     background-color: var(--givewp-gray-10);
 }
 
@@ -227,4 +227,8 @@
 
 .givewp-support-link.components-external-link > svg {
     display: none; /* Hide included icon, in favor of menu item icon. */
+}
+
+.givewp-form-settings__editor .interface-interface-skeleton {
+    width: 100%;
 }
