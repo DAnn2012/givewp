@@ -175,9 +175,15 @@ export interface GoalAchievedProps {
 }
 
 export interface HeaderProps {
+    HeaderImage: FC<HeaderImageProps | {}>;
     Title: FC<HeaderTitleProps | {}>;
     Description: FC<HeaderDescriptionProps | {}>;
     Goal: FC<GoalProps | {}>;
+}
+
+export interface HeaderImageProps {
+    url: string;
+    alt: string;
 }
 
 export interface HeaderDescriptionProps {
