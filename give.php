@@ -6,7 +6,7 @@
  * Description: The most robust, flexible, and intuitive way to accept donations on WordPress.
  * Author: GiveWP
  * Author URI: https://givewp.com/
- * Version: 3.5.1
+ * Version: 3.6.1
  * Requires at least: 6.0
  * Requires PHP: 7.2
  * Text Domain: give
@@ -237,7 +237,8 @@ final class Give
         FormMigrationServiceProvider::class,
         //TODO: merge this service provider
         Give\PaymentGateways\Gateways\ServiceProvider::class,
-
+        Give\EventTickets\ServiceProvider::class,
+        Give\BetaFeatures\ServiceProvider::class,
     ];
 
     /**
@@ -403,7 +404,7 @@ final class Give
     {
         // Plugin version.
         if (!defined('GIVE_VERSION')) {
-            define('GIVE_VERSION', '3.5.1');
+            define('GIVE_VERSION', '3.6.1');
         }
 
         // Plugin Root File.

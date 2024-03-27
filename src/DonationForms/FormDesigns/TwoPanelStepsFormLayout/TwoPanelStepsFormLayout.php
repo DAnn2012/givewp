@@ -5,14 +5,14 @@ namespace Give\DonationForms\FormDesigns\TwoPanelStepsFormLayout;
 use Give\Framework\FormDesigns\FormDesign;
 
 /**
- * @unreleased
+ * @since 3.6.0
  */
 class TwoPanelStepsFormLayout extends FormDesign
 {
     protected $isMultiStep = true;
 
     /**
-     * @unreleased
+     * @since 3.6.0
      */
     public static function id(): string
     {
@@ -20,15 +20,15 @@ class TwoPanelStepsFormLayout extends FormDesign
     }
 
     /**
-     * @unreleased
+     * @since 3.6.0
      */
     public static function name(): string
     {
-        return __('Two Panel (Steps)', 'give');
+        return __('Two Panel', 'give');
     }
 
     /**
-     * @unreleased
+     * @since 3.6.0
      */
     public function css(): string
     {
