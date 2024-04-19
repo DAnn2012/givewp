@@ -511,6 +511,54 @@ class FormMetaDecorator extends FormModelDecorator
     }
 
     /**
+     * @since 3.7.0
+     */
+    public function isConstantContactEnabled(): bool
+    {
+        $isFormEnabled = give_is_setting_enabled($this->getMeta('_give_constant_contact_enable'),'true');
+
+        $isFormDisabled = give_is_setting_enabled($this->getMeta('_give_constant_contact_disable'),'true');
+
+        $isGloballyEnabled = give_is_setting_enabled(give_get_option('give_constant_contact_show_checkout_signup'), 'on');
+
+        return !($isFormDisabled || ( !$isGloballyEnabled && !$isFormEnabled));
+      }
+
+    /**
+     * @since 3.7.0
+     */
+    public function getConstantContactLabel(): string
+    {
+        $defaultMeta = give_get_option('give_constant_contact_label', __('Subscribe to our newsletter?'));
+
+        return $this->getMeta('_give_constant_contact_custom_label', $defaultMeta);
+    }
+
+    /**
+     * @since 3.7.0
+     */
+    public function getConstantContactDefaultChecked(): bool
+    {
+        $defaultMeta = give_is_setting_enabled(
+            give_get_option('give_constant_contact_checked_default',
+                true),
+            'on'
+        );
+
+        return $this->getMeta('_give_constant_contact_checked_default', $defaultMeta);
+    }
+
+    /**
+     * @since 3.7.0
+     */
+    public function getConstantContactSelectedLists(): array
+    {
+        $defaultMeta = give_get_option('give_constant_contact_list', []);
+
+        return (array)$this->getMeta('_give_constant_contact', $defaultMeta);
+    }
+
+    /**
      * @since 3.3.0
      */
     public function isMailchimpEnabled(): bool
@@ -527,42 +575,39 @@ class FormMetaDecorator extends FormModelDecorator
     /**
      * @since 3.3.0
      */
-    public function getMailchimpLabel()
+    public function getMailchimpLabel(): string
     {
-        $value = $this->getMeta('_give_mailchimp_custom_label');
-        return $value === '' ? null : $value;
+        return $this->getMeta('_give_mailchimp_custom_label',  give_get_option('give_mailchimp_label', __('Subscribe to newsletter?')));
     }
 
     /**
+     * @since 3.7.0 add global setting as default.
      * @since 3.3.0
      */
     public function getMailchimpDefaultChecked(): bool
     {
-        return $this->getMeta('_give_mailchimp_checked_default');
+        return give_is_setting_enabled($this->getMeta('_give_mailchimp_checked_default',
+            give_get_option('give_mailchimp_checked_default', true)));
     }
 
     /**
-     * @since 3.3.0
-     */
-    public function getMailchimpDoubleOptIn(): bool
-    {
-        return $this->getMeta('_give_mailchimp_double_opt_in');
-    }
-
-    /**
+     * @since 3.7.0 add global setting as default.
      * @since 3.3.0
      */
     public function getMailchimpSendDonationData(): bool
     {
-        return $this->getMeta('_give_mailchimp_send_donation');
+        return give_is_setting_enabled($this->getMeta('_give_mailchimp_send_donation_data',
+            give_get_option('give_mailchimp_donation_data', true)));
     }
 
     /**
+     * @since 3.7.0 add global setting as default.
      * @since 3.3.0
      */
     public function getMailchimpSendFFMData(): bool
     {
-        return $this->getMeta('_give_mailchimp_send_ffm');
+        return  give_is_setting_enabled($this->getMeta('_give_mailchimp_send_ffm',
+            give_get_option('give_mailchimp_ffm_pass_field')));
     }
 
     /**
@@ -570,15 +615,15 @@ class FormMetaDecorator extends FormModelDecorator
      */
     public function getMailchimpDefaultAudiences(): array
     {
-        return $this->getMeta('_give_mailchimp');
+        return (array)$this->getMeta('_give_mailchimp', give_get_option('give_mailchimp_list', ['']));
     }
 
     /**
      * @since 3.3.0
      */
-    public function getMailchimpSubscriberTags(): array
+    public function getMailchimpSubscriberTags():? array
     {
-        return $this->getMeta('_give_mailchimp_tags');
+        return (array)$this->getMeta('_give_mailchimp_tags', null);
     }
 
 
@@ -762,6 +807,22 @@ class FormMetaDecorator extends FormModelDecorator
     public function getGiftAidDeclarationForm(): string
     {
         return $this->getMeta('give_gift_aid_declaration_form');
+    }
+
+    /**
+     * @since 3.8.0
+     */
+    public function getDoubleTheDonationStatus(): string
+    {
+        return $this->getMeta('dtd_enable_disable');
+    }
+
+    /**
+     * @since 3.8.0
+     */
+    public function getDoubleTheDonationLabel(): string
+    {
+        return $this->getMeta('give_dtd_label');
     }
 
     /**
